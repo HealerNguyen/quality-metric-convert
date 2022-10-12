@@ -1,43 +1,46 @@
 /*
- *
- *
- *       Complete the API routing below
- *
- *
- */
+*
+*
+*       Complete the API routing below
+*
+*
+*/
 
-"use strict";
+'use strict';
 
-const expect = require("chai").expect;
-const ConvertHandler = require("../controllers/convertHandler.js");
+var expect = require('chai').expect;
+var ConvertHandler = require('../controllers/convertHandler.js');
 
 module.exports = function (app) {
-  let convertHandler = new ConvertHandler();
+  
+  var convertHandler = new ConvertHandler();
 
-  app.route("/api/convert").get(function (req, res) {
-    let input = req.query.input;
-    let initNum = convertHandler.getNum(input);
-    let initUnit = convertHandler.getUnit(input);
-    if (!initNum && !initUnit) {
-      res.send("invalid number and unit");
-      return;
-    } else if (!initNum) {
-      res.send("invalid number");
-      return;
-    } else if (!initUnit) {
-      res.send("invalid unit");
-      return;
-    }
-    let returnNum = convertHandler.convert(initNum, initUnit);
-    let returnUnit = convertHandler.getReturnUnit(initUnit);
-    let toString = convertHandler.getString(
-      initNum,
-      initUnit,
-      returnNum,
-      returnUnit
-    );
+  app.route('/api/convert')
+    .get(function (req, res){
+    
+      // Input
+      var input = req.query.input.toLowerCase();
 
-    //res.json
-    res.json({ initNum, initUnit, returnNum, returnUnit, string: toString });
+      // Get Number and Unit
+      var initNum = convertHandler.getNum(input);
+      var initUnit = convertHandler.getUnit(input);
+
+      // Check for Valid Input
+      if (initNum == 'invalid number' && initUnit == 'invalid unit') return res.send('invalid number and unit');
+      else if (initNum == 'invalid number') return res.send('invalid number');
+      else if (initUnit == 'invalid unit') return res.send('invalid unit');
+
+
+      // Converters
+      var returnNum = convertHandler.convert(initNum, initUnit);
+      var returnUnit = convertHandler.getReturnUnit(initUnit);
+      var toString = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
+
+
+      // Return Json to Page
+      var toJson = toString;
+      return res.json(toJson);
+
   });
+  
 };
