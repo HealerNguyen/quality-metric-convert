@@ -35,7 +35,7 @@ suite("Unit Tests", function () {
   });
   test("Testing invalid double fraction input", () => {
     assert.strictEqual(
-      convertHandler.getNum("2/2/7kg"),
+      convertHandler.getNumFailed("2/2/7kg"),
       "invalid number",
       "Return error for invalid double fraction input"
     );
@@ -79,7 +79,7 @@ suite("Unit Tests", function () {
 
   test("Testing invalid input unit", () => {
     assert.strictEqual(
-      convertHandler.getUnit("2invalidUnit"),
+      convertHandler.getUnitFailed("2invalidUnit"),
       "invalid unit",
       "Correctly return error message for invalid input unit"
     );
@@ -121,32 +121,32 @@ suite("Unit Tests", function () {
   test("Testing spelled-out string unit for valid input unit", () => {
     assert.strictEqual(
       convertHandler.spellOutUnit("GAL"),
-      "gal",
+      "gallons",
       "Correctly return gal as output unit for GAL input unit"
     );
     assert.strictEqual(
       convertHandler.spellOutUnit("l"),
-      "L",
+      "liters",
       "Correctly return L as output unit for l input unit"
     );
     assert.strictEqual(
       convertHandler.spellOutUnit("MI"),
-      "mi",
+      "miles",
       "Correctly return mi as output unit for MI input unit"
     );
     assert.strictEqual(
       convertHandler.spellOutUnit("KM"),
-      "km",
+      "kilometers",
       "Correctly return km as output unit for KM input unit"
     );
     assert.strictEqual(
       convertHandler.spellOutUnit("LBS"),
-      "lbs",
+      "pounds",
       "Correctly return lbs as output unit for LBS input unit"
     );
     assert.strictEqual(
       convertHandler.spellOutUnit("KG"),
-      "kg",
+      "kilograms",
       "Correctly return kg as output unit for KG input unit"
     );
   });
